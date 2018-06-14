@@ -374,7 +374,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     
     email = "ali.zakaria@ensea.fr"
-    mdp = "Code2173+"
+    mdp = "###########"
     processGui = ProcessGui("OneEmail",email,mdp,"smtp2.ensea.fr",587)
     processGui.show()
 
