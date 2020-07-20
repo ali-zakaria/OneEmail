@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 import sys
-
+import unidecode
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -42,7 +42,7 @@ class ProcessGui(QWidget):
         self.setWindowTitle(self.title)
         
         icon = QIcon()
-        icon.addFile('icon.ico', QSize(256,256))
+        icon.addFile(sys._MEIPASS+'/icon.ico', QSize(256,256))
         self.setWindowIcon(icon)
 		
         self.setFixedSize(450, 450)
@@ -161,6 +161,13 @@ class ProcessGui(QWidget):
         
         Hlayout_body = QHBoxLayout()
         self.body = QTextEdit()
+        body_text = "Astuce: Si le mail est sous la forme prenom.nom@domain.xyz, "
+        body_text += "vous pouvez envoyer un mail personnalisé en accédant au nom et prénom du destinataire avec %nom et %prenom respectivement.\n\n"
+        body_text += "Example: emmanuel.macron@elysee.fr\n\n"
+        body_text += "Bonjour M. %prenom %nom,\n"
+        body_text += "Sera reçu comme:\n"
+        body_text += "Bonjour M. Emmanuel Macron,\n"
+        self.body.setText(body_text)
         self.fontBodyFamily = "Tahoma"
         self.fontBodyPointSize = 8
         self.body.setFontFamily(self.fontBodyFamily)
@@ -344,7 +351,7 @@ class ProcessGui(QWidget):
                     part.set_payload((attachment).read())
                     encoders.encode_base64(part)
                     a = filename.rfind('/')
-                    part.add_header('Content-Disposition', "attachment; filename= %s" % filename[a+1:])
+                    part.add_header('Content-Disposition', "attachment; filename= %s" % unidecode.unidecode(filename[a+1:]))
                     msg.attach(part)
 
                 server = smtplib.SMTP(self.serverSMTP, self.serverPORT)

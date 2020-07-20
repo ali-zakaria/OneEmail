@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(title) 
         
         icon = QIcon()
-        icon.addFile('icon.ico', QSize(256,256))
+        icon.addFile(sys._MEIPASS+'/icon.ico', QSize(256,256))
         self.setWindowIcon(icon)
         
         #menuBar = QMenuBar(self)

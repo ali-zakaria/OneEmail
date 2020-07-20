@@ -4,7 +4,7 @@
 from __future__ import unicode_literals
 import sys
 
-import urllib2
+import urllib.request as urllib2
 
 import smtplib
 
@@ -30,7 +30,7 @@ class WelcomeGui(QWidget):
         self.title = title
         self.setWindowTitle(title) 
         icon = QIcon()
-        icon.addFile('icon.ico', QSize(256,256))
+        icon.addFile(sys._MEIPASS+'/icon.ico', QSize(256,256))
         self.setWindowIcon(icon)        
         self.setFixedSize(300, 150)
         self.vlayout = QVBoxLayout(self)
